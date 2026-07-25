@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTU-ETR PhD Portal & Question Papers</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #2563eb;
+            --accent-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #cbd5e1;
+            --success-color: #166534;
+            --accordion-hover: #f1f5f9;
+            --header-bg: #1e3a8a;
+            --header-text: #ffffff;
+
+            /* Reference Box Colors */
+            --ref-bg: #eff6ff;
+            --ref-border: #3b82f6;
+            --ref-text: #1d4ed8;
+        }
+
+        /* Dark Mode CSS Variables */
+        [data-theme="dark"] {
+            --primary-color: #60a5fa;
+            --secondary-color: #3b82f6;
+            --accent-color: #f59e0b;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --border-color: #334155;
+            --success-color: #4ade80;
+            --accordion-hover: #334155;
+            --header-bg: #0284c7;
+            --header-text: #ffffff;
+
+            --ref-bg: #1e3a5f;
+            --ref-border: #60a5fa;
+            --ref-text: #93c5fd;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 1.5rem 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        header p {
+            margin-top: 0.3rem;
+            color: #e0f2fe;
+            font-size: 0.95rem;
+        }
+
+        /* Dark Mode Switch Button */
+        .theme-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 1rem auto;
+            padding: 0 0.8rem;
+        }
+
+        /* ---------------------------------------------------
+           RESPONSIVE TABS (Grid on Mobile/iPad, Line on Desktop)
+           --------------------------------------------------- */
+        .tabs-wrapper {
+            margin-bottom: 1.5rem;
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Responsive Grid for Mobile/Tablet */
+            gap: 0.6rem;
+            width: 100%;
+        }
+
+        .tab-button {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            outline: none;
+            padding: 0.75rem 0.5rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+        }
+
+        .tab-button.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Desktop Mode Layout (Width >= 900px) */
+        @media (min-width: 900px) {
+            .tabs {
+                display: flex;
+                justify-content: center;
+                gap: 0.4rem;
+                border-bottom: 2px solid var(--border-color);
+                padding-bottom: 0;
+            }
+
+            .tab-button {
+                background-color: transparent;
+                border: none;
+                border-bottom: 3px solid transparent;
+                border-radius: 0;
+                padding: 0.8rem 0.9rem;
+                font-size: 0.92rem;
+                color: var(--text-color);
+                opacity: 0.8;
+                min-height: auto;
+            }
+
+            .tab-button:hover {
+                color: var(--secondary-color);
+                opacity: 1;
+            }
+
+            .tab-button.active {
+                background-color: transparent;
+                color: var(--secondary-color);
+                border-bottom-color: var(--secondary-color);
+                box-shadow: none;
+                opacity: 1;
+            }
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards Layout */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.25rem;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* Progress Bar Styling */
+        .progress-section {
+            margin-bottom: 1.2rem;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background-color: var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        /* Search Bar & Controls */
+        .search-box-wrapper {
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.6rem 0.9rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .control-btn {
+            padding: 0.6rem 0.9rem;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .control-btn:hover {
+            background-color: var(--accordion-hover);
+        }
+
+        /* Notepad Section Styling */
+        .notepad-textarea {
+            width: 100%;
+            height: 320px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            resize: vertical;
+            outline: none;
+        }
+
+        .notepad-status {
+            font-size: 0.85rem;
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        /* Accordion Toggle Styles for Syllabus */
+        .accordion-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            transition: border-color 0.2s ease;
+        }
+
+        .accordion-header {
+            width: 100%;
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            padding: 0.9rem 1.1rem;
+            font-size: 0.98rem;
+            font-weight: 700;
+            border: none;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: var(--accordion-hover);
+        }
+
+        .accordion-title-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .unit-checkbox {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--secondary-color);
+        }
+
+        .accordion-icon {
+            font-size: 0.75rem;
+            transition: transform 0.3s ease;
+            color: var(--secondary-color);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background-color: var(--card-bg);
+            border-top: 0px solid var(--border-color);
+            padding: 0 1.1rem;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            padding: 0.9rem 1.1rem;
+            border-top-width: 1px;
+        }
+
+        .accordion-content p {
+            margin: 0 0 0.8rem 0;
+            font-size: 0.92rem;
+            color: var(--text-color);
+        }
+
+        /* Reference Box Highlighting */
+        .reference-box {
+            background-color: var(--ref-bg);
+            border-left: 4px solid var(--ref-border);
+            padding: 10px 14px;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .reference-box .ref-title {
+            font-weight: bold;
+            color: var(--ref-text);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .reference-box ol, .reference-box ul {
+            margin: 4px 0 0 18px;
+            padding: 0;
+        }
+
+        .reference-box li {
+            margin-bottom: 2px;
+        }
+
+        /* Responsive PDF Grid */
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .pdf-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .pdf-card h4 {
+            margin: 0 0 0.4rem 0;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        .pdf-card p {
+            margin: 0 0 0.8rem 0;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0.4rem 0.9rem;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* PDF Selector Buttons on Mobile */
+        .pdf-selector-buttons {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .pdf-selector-buttons .btn {
+            flex: 1 1 calc(33.333% - 0.4rem);
+            min-width: 80px;
+            font-size: 0.8rem;
+            padding: 0.4rem;
+        }
+
+        /* Responsive Iframe Container */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #e2e8f0;
+        }
+
+        .iframe-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Responsive Tables */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 0.8rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: var(--accordion-hover);
+            color: var(--primary-color);
+        }
+
+        .question-box {
+            background-color: var(--bg-color);
+            border-left: 4px solid var(--secondary-color);
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.9rem;
+        }
+
+        .answer {
+            font-weight: bold;
+            color: var(--success-color);
+            margin-top: 0.3rem;
+        }
+
+        /* Quick Links Card Styles */
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.9rem 1.1rem;
+            border-radius: 8px;
+            margin-bottom: 0.8rem;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s ease;
+        }
+
+        .link-card:hover {
+            border-color: var(--secondary-color);
+            transform: translateX(3px);
+        }
+
+        .link-title {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        @media (min-width: 768px) {
+            header h1 { font-size: 2rem; }
+            header p { font-size: 1.1rem; }
+            .container { margin: 2rem auto; padding: 0 1rem; }
+            .card { padding: 1.5rem; }
+            .iframe-container { height: 650px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="theme-btn" onclick="toggleDarkMode()">🌓 Mode</button>
+        <h1>VTU - Eligibility Test for Research</h1>
+        <p>Ph.D. / M.S. (Research) Entrance Portal</p>
+    </header>
+
+    <div class="container">
+        <!-- Responsive Menu Grid for Mobile/Tablet/Desktop -->
+        <div class="tabs-wrapper">
+            <div class="tabs">
+                <button class="tab-button active" onclick="openTab(event, 'Home')">📌 Overview & Pattern</button>
+                <button class="tab-button" onclick="openTab(event, 'Papers')">📄 Question Papers</button>
+                <button class="tab-button" onclick="openTab(event, 'CS')">💻 CS/IS Syllabus (50%)</button>
+                <button class="tab-button" onclick="openTab(event, 'RM')">📊 RM Syllabus (50%)</button>
+                <button class="tab-button" onclick="openTab(event, 'Links')">🔗 Links & Guidelines</button>
+                <button class="tab-button" onclick="openTab(event, 'Notes')">📝 My Study Notes</button>
+            </div>
+        </div>
+
+        <!-- TAB 1: OVERVIEW & EXAM PATTERN -->
+        <div id="Home" class="tab-content active">
+            <div class="card">
+                <h2>Examination Overview</h2>
+                <p>The Visvesvaraya Technological University Eligibility Test for Research (VTU-ETR) qualifies candidates for admission into Ph.D. and M.S. (Research) degrees.</p>
+                
+                <h3>Key Exam Structure</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Total Marks</strong></td>
+                                <td>100 Marks</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total Questions</strong></td>
+                                <td>100 Multiple Choice Questions (MCQs)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Duration</strong></td>
+                                <td>3 Hours (180 Minutes)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Marking Scheme</strong></td>
+                                <td>1 Mark per Question | <strong>NO Negative Marking</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Part A</strong></td>
+                                <td>50% (50 MCQs) - Research Methodology</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Part B</strong></td>
+                                <td>50% (50 MCQs) - Computer Science & Engg / Information Science</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: QUESTION PAPERS & PDF VIEWER -->
+        <div id="Papers" class="tab-content">
+            <div class="card">
+                <h2>Previous Years Question Papers</h2>
+                <p style="font-size:0.9rem;">Tap below to view or download previous VTU-ETR papers directly:</p>
+
+                <div class="pdf-grid">
+                    <div class="pdf-card">
+                        <h4>Jan 2025 Paper</h4>
+                        <p>Versions A, B, C, D + Answer Key</p>
+                        <div class="btn-group">
+                            <a href="Jan-2025.pdf" target="_blank" class="btn">View</a>
+                            <a href="Jan-2025.pdf" download class="btn btn-outline">Download</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card">
+                        <h4>Oct 2025 Paper</h4>
+                        <p>Versions A, B, C, D + Answer Key</p>
+                        <div class="btn-group">
+                            <a href="Oct-2025.pdf" target="_blank" class="btn">View</a>
+                            <a href="Oct-2025.pdf" download class="btn btn-outline">Download</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card">
+                        <h4>May 2024 Paper</h4>
+                        <p>Versions A, B, C, D + Answer Key</p>
+                        <div class="btn-group">
+                            <a href="May – 2024.pdf" target="_blank" class="btn">View</a>
+                            <a href="May – 2024.pdf" download class="btn btn-outline">Download</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card">
+                        <h4>August 2023 Paper</h4>
+                        <p>Versions A, B, C, D + Answer Key</p>
+                        <div class="btn-group">
+                            <a href="August – 2023.pdf" target="_blank" class="btn">View</a>
+                            <a href="August – 2023.pdf" download class="btn btn-outline">Download</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card">
+                        <h4>November 2022 Paper</h4>
+                        <p>Versions A, B, C, D + Answer Key</p>
+                        <div class="btn-group">
+                            <a href="Nov-2022.pdf" target="_blank" class="btn">View</a>
+                            <a href="Nov-2022.pdf" download class="btn btn-outline">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Embedded PDF Previewer -->
+            <div class="card">
+                <h2>Embedded Paper Viewer</h2>
+                <div class="pdf-selector-buttons">
+                    <button class="btn" onclick="loadPdf('Jan-2025.pdf')">Jan 2025</button>
+                    <button class="btn" onclick="loadPdf('Oct-2025.pdf')">Oct 2025</button>
+                    <button class="btn" onclick="loadPdf('May – 2024.pdf')">May 2024</button>
+                    <button class="btn" onclick="loadPdf('August – 2023.pdf')">Aug 2023</button>
+                    <button class="btn" onclick="loadPdf('Nov-2022.pdf')">Nov 2022</button>
+                </div>
+
+                <div style="margin-bottom: 0.5rem; text-align: right;">
+                    <a id="external-pdf-link" href="Jan-2025.pdf" target="_blank" style="font-size: 0.85rem; font-weight: bold; color: var(--secondary-color);">↗ Open Full PDF in New Tab</a>
+                </div>
+
+                <div class="iframe-container">
+                    <iframe id="pdf-frame" src="Jan-2025.pdf"></iframe>
+                </div>
+            </div>
+
+            <!-- Repeated Questions Analysis -->
+            <div class="card">
+                <h2>High-Yield Repeated Questions</h2>
+                
+                <div class="question-box">
+                    <p><strong>1. Research Methodology: Type-I Error</strong></p>
+                    <p><em>Question:</em> Type-I error occurs when:</p>
+                    <p class="answer">Answer: Null Hypothesis is rejected even if it is true ($H_0$ is true)</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>2. Data Structures: BST Node Count</strong></p>
+                    <p><em>Question:</em> BST insertion order: <code>50, 15, 62, 5, 20, 58, 91, 3, 8, 37, 60, 24</code>. Left & Right subtrees node count:</p>
+                    <p class="answer">Answer: (7, 4)</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>3. Operating Systems: Thrashing</strong></p>
+                    <p><em>Question:</em> Thrashing in OS memory management occurs when:</p>
+                    <p class="answer">Answer: Processes spend more time page swapping/paging than executing code</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>4. Computer Networks: Presentation Layer</strong></p>
+                    <p><em>Question:</em> Which OSI layer handles data compression, encryption, and formatting?</p>
+                    <p class="answer">Answer: Presentation Layer (Layer 6)</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>5. Research Methodology: Type-II Error</strong></p>
+                    <p><em>Question:</em> Type-II error ($\beta$) occurs when:</p>
+                    <p class="answer">Answer: Failing to reject (accepting) a false Null Hypothesis ($H_0$ is false)</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>6. Database Systems: Normalization</strong></p>
+                    <p><em>Question:</em> A relation table is in 3NF if it is in 2NF and has no:</p>
+                    <p class="answer">Answer: Transitive Dependencies</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>7. Design & Analysis of Algorithms: Dijkstra's Algorithm</strong></p>
+                    <p><em>Question:</em> Dijkstra's Single Source Shortest Path fails when graph edges have:</p>
+                    <p class="answer">Answer: Negative weights or negative cycles</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>8. Software Engineering: Coupling vs Cohesion</strong></p>
+                    <p><em>Question:</em> In good software modular architecture, software modules should have:</p>
+                    <p class="answer">Answer: High Cohesion and Low Coupling</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>9. Research Methodology: Sampling Technique</strong></p>
+                    <p><em>Question:</em> Snowball sampling is categorized under which type of sampling method?</p>
+                    <p class="answer">Answer: Non-Probability Sampling</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>10. Computer Organization: Cache Memory Alignment</strong></p>
+                    <p><em>Question:</em> Principle of locality of reference is used to justify the presence of:</p>
+                    <p class="answer">Answer: Cache Memory</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>11. Intellectual Property Rights: Patent Duration</strong></p>
+                    <p><em>Question:</em> What is the standard term duration of a granted Patent in India from filing date?</p>
+                    <p class="answer">Answer: 20 Years</p>
+                </div>
+
+                <div class="question-box">
+                    <p><strong>12. Discrete Mathematics: Handshaking Lemma</strong></p>
+                    <p><em>Question:</em> In an undirected graph, the sum of degrees of all vertices equals:</p>
+                    <p class="answer">Answer: Twice the total number of edges ($2 \times |E|$)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: CS/IS SYLLABUS -->
+        <div id="CS" class="tab-content">
+            <div class="card">
+                <h2>Computer Science & Information Science (50%)</h2>
+                <hr style="margin-bottom: 1.2rem; border: 0; border-top: 1px solid var(--border-color);">
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span>CS/IS Syllabus Completion</span>
+                        <span id="cs-progress-text">0 of 10 Units Completed (0%)</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="cs-progress-bar" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="search-box-wrapper">
+                    <input type="text" class="search-input" onkeyup="filterUnits(this, 'CS')" placeholder="🔍 Search topics or books in CS syllabus...">
+                    <button class="control-btn" onclick="toggleAll('CS', true)">📂 Expand All</button>
+                    <button class="control-btn" onclick="toggleAll('CS', false)">📁 Collapse All</button>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u1')" title="Mark as Completed">
+                            <span>Unit 1: Data Structures and Applications</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Introductions, primitive, arrays, strings, stacks recursion, queues, linked lists, trees, sorting and searching.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Books:</span>
+                            <ol>
+                                <li>Ellis Horowitz and Sartaj Sahni, <em>Fundamentals of Data Structures in C</em>, Universities Press.</li>
+                                <li>Seymour Lipschutz, <em>Data Structures Schaum's Outlines</em>, McGraw Hill.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u2')" title="Mark as Completed">
+                            <span>Unit 2: Discrete Mathematical Structures</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Fundamentals of logics, properties of Integers, principles of counting, relations and functions, inclusion and exclusion, graph theory.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Ralph P. Grimaldi: <em>Discrete and Combinatorial Mathematics</em>, Pearson Education.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u3')" title="Mark as Completed">
+                            <span>Unit 3: Software Engineering</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Introduction, requirement engineering, RUP, UML, software testing, project planning, agile software development.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Ian Sommerville: <em>Software Engineering</em>, Pearson Education.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u4')" title="Mark as Completed">
+                            <span>Unit 4: Computer Organization</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Machine instructions and programs, input/output organization, memory, Arithmetic, and basic processing unit.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Carl Hamacher, Zvonko Vranesic, Safwat Zaky: <em>Computer Organization</em>, 5th Edition, Tata McGraw Hill, 2002.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u5')" title="Mark as Completed">
+                            <span>Unit 5: Design and Analysis of Algorithms</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Introduction to algorithms, performance, divide and conquer, greedy, dynamic programming, backtracking.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Books:</span>
+                            <ol>
+                                <li>Anany Levitin, <em>Introduction to the Design and Analysis of Algorithms</em>, Pearson.</li>
+                                <li>Ellis Horowitz, Sartaj Sahni and Rajasekaran, <em>Computer Algorithms / C++</em>, Universities Press.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u6')" title="Mark as Completed">
+                            <span>Unit 6: Operating Systems</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Introduction, multi-threaded programming, Deadlocks, virtual memory management, secondary storage structures and protections.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Abraham Silberschatz, Peter Baer Galvin, Greg Gagne: <em>Operating System Principles</em>, Wiley-India.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u7')" title="Mark as Completed">
+                            <span>Unit 7: Computer Networks</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Introduction, Digital transmission, bandwidth utilization, Data link control, media access control, wired LAN and Ethernet. Application layer, Transport layer, Network layer, Network security.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Books:</span>
+                            <ol>
+                                <li>Behrouz A. Forouzan, <em>Data Communications and Networking</em>.</li>
+                                <li>James F Kurose and Keith W Ross, <em>Computer Networking, A Top-Down Approach</em>, Sixth edition, Pearson.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u8')" title="Mark as Completed">
+                            <span>Unit 8: Object-Oriented Modeling & Design</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Use cases, System design, Class diagrams, Sequence diagrams, Design Patterns (Observer, Adapter, Factory, Singleton).</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Michael Blaha, James Rumbaugh: <em>Object-Oriented Modeling and Design with UML</em>, Pearson.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u9')" title="Mark as Completed">
+                            <span>Unit 9: Database Management Systems</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Relational model, Relational Algebra, SQL queries, Normalization (1NF to BCNF), Transaction processing, Concurrency control, External sorting.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Ramez Elmasri, Shamkant B. Navathe: <em>Fundamentals of Database Systems</em>, Pearson.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('CS'); saveProgress(this, 'cs-u10')" title="Mark as Completed">
+                            <span>Unit 10: System Modeling & Simulation</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Queuing models, Random number generation, Input modeling, Verification, Calibration, Validation, Simulation software tools.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Jerry Banks, John S. Carson II, Barry L. Nelson: <em>Discrete-Event System Simulation</em>, Pearson.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: RESEARCH METHODOLOGY SYLLABUS -->
+        <div id="RM" class="tab-content">
+            <div class="card">
+                <h2>Research Methodology (50%)</h2>
+                <hr style="margin-bottom: 1.2rem; border: 0; border-top: 1px solid var(--border-color);">
+
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span>RM Syllabus Completion</span>
+                        <span id="rm-progress-text">0 of 10 Units Completed (0%)</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="rm-progress-bar" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+
+                <div class="search-box-wrapper">
+                    <input type="text" class="search-input" onkeyup="filterUnits(this, 'RM')" placeholder="🔍 Search topics or books in RM syllabus...">
+                    <button class="control-btn" onclick="toggleAll('RM', true)">📂 Expand All</button>
+                    <button class="control-btn" onclick="toggleAll('RM', false)">📁 Collapse All</button>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u1')" title="Mark as Completed">
+                            <span>UNIT 1: Introduction & Research Problem</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Meaning, objectives, and motivation of research; Types of research (Descriptive vs Analytical, Applied vs Fundamental); Research process, defining the research problem, literature review, citation networks, research ethics.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            C.R. Kothari & Gaurav Garg, <em>Research Methodology: Methods and Techniques</em>, New Age International.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u2')" title="Mark as Completed">
+                            <span>UNIT 2: Literature Review & Research Design</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Theoretical & conceptual frameworks, experimental designs, randomized block designs, principles of experimental design, literature search strategies.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            John W. Creswell, <em>Research Design: Qualitative, Quantitative, and Mixed Methods Approaches</em>, SAGE.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u3')" title="Mark as Completed">
+                            <span>UNIT 3: Sampling, Measurement & Data Collection</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Probability vs Non-probability sampling, sample size determination, measurement scales (Nominal, Ordinal, Interval, Ratio), sources of errors, questionnaires, primary & secondary data collection.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Donald R. Cooper & Pamela S. Schindler, <em>Business Research Methods</em>, McGraw Hill.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u4')" title="Mark as Completed">
+                            <span>UNIT 4: Data Preparation & Descriptive Statistics</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Editing, coding, classification, missing values treatment, measures of central tendency, dispersion, skewness, kurtosis, data visualization tools.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Richard I. Levin & David S. Rubin, <em>Statistics for Management</em>, Pearson.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u5')" title="Mark as Completed">
+                            <span>UNIT 5: Statistical Inference & Central Limit Theorem</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Parameters, sample statistics, standard error, sampling distributions, law of large numbers, Central Limit Theorem applications.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            S.P. Gupta, <em>Statistical Methods</em>, Sultan Chand & Sons.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u6')" title="Mark as Completed">
+                            <span>UNIT 6: Hypothesis Testing & Chi-Square</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Null & Alternative hypotheses, Type-I and Type-II errors, critical region, p-value, power of test, z-test, t-test, Chi-Square test for independence & goodness of fit.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            C.R. Kothari & Gaurav Garg, <em>Research Methodology: Methods and Techniques</em>, New Age International.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u7')" title="Mark as Completed">
+                            <span>UNIT 7: Analysis of Variance (ANOVA)</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> One-way and Two-way ANOVA, F-distribution, variance decomposition, Latin Square Design, ANCOVA concepts.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Douglas C. Montgomery, <em>Design and Analysis of Experiments</em>, Wiley.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u8')" title="Mark as Completed">
+                            <span>UNIT 8: Regression & Factor Analysis</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Simple & Multiple linear regression, coefficient of determination ($R^2$), multicollinearity, factor analysis (R-Type & Q-Type), principal component analysis.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Joseph F. Hair et al., <em>Multivariate Data Analysis</em>, Pearson.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u9')" title="Mark as Completed">
+                            <span>UNIT 9: Intellectual Property Rights & Patents</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Overview of IPR, Patent eligibility criteria (Novelty, Inventive Step, Industrial Applicability), non-patentable subject matter, filing patent applications, patent commercialization.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            Prabuddha Ganguli, <em>Intellectual Property Rights: Unleashing the Knowledge Economy</em>, Tata McGraw-Hill.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <div class="accordion-title-area" onclick="toggleAccordion(this)">
+                            <input type="checkbox" class="unit-checkbox" onclick="event.stopPropagation(); updateProgress('RM'); saveProgress(this, 'rm-u10')" title="Mark as Completed">
+                            <span>UNIT 10: Copyrights & Trademarks</span>
+                        </div>
+                        <span class="accordion-icon" onclick="toggleAccordion(this.parentElement)">►</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p><strong>Detailed Topics:</strong> Copyright definitions, classes, exclusive rights of owners, Fair Use doctrine, Trademark registration process, qualifications, and categories under Indian law.</p>
+                        <div class="reference-box">
+                            <span class="ref-label">📖 Reference Book:</span>
+                            V.K. Ahuja, <em>Law Relating to Intellectual Property Rights</em>, LexisNexis.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: QUICK LINKS & GUIDELINES -->
+        <div id="Links" class="tab-content">
+            <div class="card">
+                <h2>Official Quick Links & University Guidelines</h2>
+                <hr style="margin-bottom: 1.2rem; border: 0; border-top: 1px solid var(--border-color);">
+
+                <a href="https://vtu.ac.in/" target="_blank" class="link-card">
+                    <div>
+                        <div class="link-title">🌐 Visvesvaraya Technological University (VTU Official)</div>
+                        <div style="font-size:0.85rem; opacity:0.8;">Main official portal for circulars, notifications, and university announcements.</div>
+                    </div>
+                    <span style="font-weight:bold; color:var(--secondary-color);">↗ Visit</span>
+                </a>
+
+                <a href="https://vtu.ac.in/en/category/ph-d-notifications/" target="_blank" class="link-card">
+                    <div>
+                        <div class="link-title">📢 VTU Ph.D. & Research Official Notifications</div>
+                        <div style="font-size:0.85rem; opacity:0.8;">Official research center circulars, viva schedules, and entrance exam updates.</div>
+                    </div>
+                    <span style="font-weight:bold; color:var(--secondary-color);">↗ Visit</span>
+                </a>
+
+                <h3>Important Examination Guidelines</h3>
+                <div style="font-size: 0.92rem; line-height: 1.7;">
+                    <ul>
+                        <li><strong>Minimum Qualifying Score:</strong> Candidates must score at least <strong>50% aggregate marks</strong> in the VTU-ETR entrance exam to qualify for the interview phase.</li>
+                        <li><strong>Part A & Part B Balance:</strong> The paper is divided equally into 50 MCQs for Research Methodology and 50 MCQs for Computer Science / Information Science.</li>
+                        <li><strong>Negative Marking:</strong> There is <strong>NO negative marking</strong> for incorrect answers. Candidates are encouraged to attempt all 100 questions.</li>
+                        <li><strong>Interview & Selection:</strong> Qualified candidates are called for a pre-registration interview where they present their broad research interest domain before the Ph.D. committee.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: CUSTOM STUDY NOTES & BOOKMARKS -->
+        <div id="Notes" class="tab-content">
+            <div class="card">
+                <h2>Custom Study Notes & Quick Notepad</h2>
+                <p style="font-size: 0.9rem; margin-bottom: 1rem;">Type your personal quick formulas, key concepts, or reminders below. Anything typed here is <strong>automatically saved</strong> locally on your device.</p>
+                
+                <textarea id="studyNotepad" class="notepad-textarea" placeholder="Type your personal formulas, weak areas, or revision points here... (e.g., Dijkstra fails for negative cycles; 3NF has no transitive dependencies)" oninput="autoSaveNotes()"></textarea>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem; flex-wrap: wrap; gap: 0.5rem;">
+                    <span id="notepadStatus" class="notepad-status">✓ All changes saved</span>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="control-btn" onclick="copyNotes()">📋 Copy Notes</button>
+                        <button class="control-btn" onclick="clearNotes()">🗑️ Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function loadPdf(fileName) {
+            document.getElementById('pdf-frame').src = fileName;
+            document.getElementById('external-pdf-link').href = fileName;
+        }
+
+        // Accordion Toggle Script
+        function toggleAccordion(header) {
+            const item = header.closest('.accordion-item');
+            item.classList.toggle('active');
+        }
+
+        // Expand All / Collapse All
+        function toggleAll(tabId, expand) {
+            const tab = document.getElementById(tabId);
+            const items = tab.querySelectorAll('.accordion-item');
+            items.forEach(item => {
+                if (expand) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Filter / Search Units
+        function filterUnits(input, tabId) {
+            const query = input.value.toLowerCase();
+            const tab = document.getElementById(tabId);
+            const items = tab.querySelectorAll('.accordion-item');
+
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    item.style.display = "block";
+                    if (query !== "") {
+                        item.classList.add('active');
+                    }
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        // Save Unit Progress in localStorage & Update Progress Bar
+        function saveProgress(checkbox, unitId) {
+            localStorage.setItem(unitId, checkbox.checked);
+        }
+
+        function updateProgress(tabId) {
+            const tab = document.getElementById(tabId);
+            const checkboxes = tab.querySelectorAll('.unit-checkbox');
+            const total = checkboxes.length;
+            let checkedCount = 0;
+
+            checkboxes.forEach(box => {
+                if (box.checked) checkedCount++;
+            });
+
+            const percent = total > 0 ? Math.round((checkedCount / total) * 100) : 0;
+            const prefix = tabId.toLowerCase();
+
+            const textElem = document.getElementById(`${prefix}-progress-text`);
+            const barElem = document.getElementById(`${prefix}-progress-bar`);
+
+            if (textElem && barElem) {
+                textElem.innerText = `${checkedCount} of ${total} Units Completed (${percent}%)`;
+                barElem.style.width = `${percent}%`;
+            }
+        }
+
+        // Auto Save Custom Notes
+        function autoSaveNotes() {
+            const content = document.getElementById('studyNotepad').value;
+            localStorage.setItem('vtu_etr_user_notes', content);
+            
+            const status = document.getElementById('notepadStatus');
+            status.innerText = "Saving...";
+            status.style.color = "var(--secondary-color)";
+
+            setTimeout(() => {
+                status.innerText = "✓ All changes saved";
+                status.style.color = "var(--success-color)";
+            }, 400);
+        }
+
+        function copyNotes() {
+            const notepad = document.getElementById('studyNotepad');
+            notepad.select();
+            document.execCommand('copy');
+            alert('Notes copied to clipboard!');
+        }
+
+        function clearNotes() {
+            if (confirm('Are you sure you want to clear your saved notes?')) {
+                document.getElementById('studyNotepad').value = '';
+                localStorage.removeItem('vtu_etr_user_notes');
+                document.getElementById('notepadStatus').innerText = "Notes cleared";
+            }
+        }
+
+        // Load Saved Checkbox States & Custom Notes on Startup
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.unit-checkbox').forEach(box => {
+                const onclickAttr = box.getAttribute('onclick');
+                const match = onclickAttr.match(/'([^']+)'/);
+                if (match) {
+                    const key = match[1];
+                    box.checked = localStorage.getItem(key) === 'true';
+                }
+            });
+
+            // Calculate progress bars after loading checkbox values
+            updateProgress('CS');
+            updateProgress('RM');
+
+            // Load saved study notes
+            const savedNotes = localStorage.getItem('vtu_etr_user_notes');
+            if (savedNotes) {
+                document.getElementById('studyNotepad').value = savedNotes;
+            }
+        });
+
+        // Dark/Light Theme Toggle Script
+        function toggleDarkMode() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+            }
+        }
+    </script>
+</body>
+</html>
